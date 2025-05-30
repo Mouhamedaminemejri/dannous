@@ -102,7 +102,7 @@ def chat():
 
     try:
         response = httpx.post(
-            "http://localhost:5000/v1/chat/completions",
+            "https://b481-41-230-179-8.ngrok-free.app/v1/chat/completions",
             json=payload,
             timeout=3000
         )
