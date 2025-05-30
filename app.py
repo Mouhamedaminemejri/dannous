@@ -6,6 +6,7 @@ from langdetect import detect
 from deep_translator import GoogleTranslator
 import json
 from flask_babel import Babel, _
+import traceback
 
 # Load environment variables
 load_dotenv()
@@ -93,6 +94,10 @@ def chat():
         "mode": "instruct",
     }
 
+    headers = {
+        "Content-Type": "application/json",
+    }
+
     print("\n=== Sending Prompt to API ===")
     print(f"User Message (original): {user_message}")
     print(f"User Message (EN): {user_message_en}")
@@ -101,15 +106,19 @@ def chat():
 
     try:
         response = httpx.post(
-            "https://b860-41-230-179-8.ngrok-free.app/v1/chat/completions",
+            "https://76f3-41-230-179-8.ngrok-free.app/v1/chat/completions",
             json=payload,
+            headers=headers,
             timeout=3000
         )
+        print(f"API Response Status: {response.status_code}")
+        print(f"API Response Body: {response.text}")
         response.raise_for_status()
         data = response.json()
         model_reply_en = data["choices"][0]["message"]["content"]
     except Exception as e:
         print(f"Error communicating with text-generation-webui API: {e}")
+        print(traceback.format_exc())
         model_reply_en = "I apologize, but I'm having trouble processing your request right now. Please try again in a moment."
 
     # Translate model reply back to user's language if needed
