@@ -91,7 +91,6 @@ def chat():
             {"role": "user", "content": user_message_en}
         ],
         "mode": "instruct",
-        "stream": True
     }
 
     print("\n=== Sending Prompt to API ===")
