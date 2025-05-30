@@ -10,3 +10,4 @@ numpy
 scikit-learn
 httpx 
 Flask-Babel==3.1.0
+gunicorn
